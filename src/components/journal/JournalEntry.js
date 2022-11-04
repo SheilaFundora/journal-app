@@ -8,8 +8,7 @@ const JournalEntry = () => {
                 style={{
                     backgroundSize: 'cover',
                     backgroundPosition: "center center",
-                    backgroundImage: 'url(https://play-lh.googleusercontent.com/qvA9Ce0HEsea0Tq9R35as4ZCHAWzCAP3lo9GARrKVM-omH_zxp5DXpAsX90SlAIGx6Ft)'
-                }}></div>
+                    backgroundImage: 'url(https://earthsky.org/upl/2018/12/comet-wirtanen-Jack-Fusco-dec-2018-Anza-Borrego-desert-CA-e1544613895713.jpg)'                }}></div>
 
             <div className="journal-entry-body p-2">
                 <p className="journal-entry-title m-0">

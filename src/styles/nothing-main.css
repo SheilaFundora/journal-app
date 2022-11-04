@@ -1,0 +1,7 @@
+.nothing-main-content{
+    background-color: var(--purple-primary);
+    height: 100vh;
+}
+.nothing-main-content p{
+    text-align: center;
+}
