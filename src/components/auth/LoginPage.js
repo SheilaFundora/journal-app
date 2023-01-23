@@ -6,7 +6,7 @@ import {login, startGoogleLogin} from "../../actions/auth";
 
 const LoginPage = () => {
 
-    const dispach = useDispatch();
+    const dispatch = useDispatch();
 
     const [ formValues, handleInputChange ] = useForm({
         email: 'nando@gmail.com',
@@ -17,11 +17,11 @@ const LoginPage = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();//sino se recarga la paguna y se oierde todos
-        dispach( login(1234, "sheila"))
+        dispatch( login(1234, "sheila"));
     }
 
     const handleGoogleLogin = () => {
-        dispach( startGoogleLogin() );
+        startGoogleLogin() ;
     }
 
     return (
