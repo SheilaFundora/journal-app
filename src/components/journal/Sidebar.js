@@ -6,7 +6,7 @@ const Sidebar = () => {
         <aside className="journal-sidebar px-3">
             <div>
                 <div className="journal-sidebar-navbar d-flex justify-content-between mt-4">
-                    <h3>
+                    <h3 className="p-0 m-0">
                         <i className="far fa-moon"></i>
                         <span> Sheila</span>
                     </h3>
@@ -16,8 +16,8 @@ const Sidebar = () => {
                     </button>
                 </div>
 
-                <div className="journal-new-entry d-flex justify-content-center mt-5 w-100 align-items-center flex-column">
-                    <i className="far fa-calendar-plus fa-5x"></i>
+                <div className="journal-new-entry d-flex justify-content-center mt-4 w-100 align-items-center flex-column">
+                    <i className="far fa-calendar-plus fa-4x"></i>
                     <p className="mt-2">New entry</p>
                 </div>
 
