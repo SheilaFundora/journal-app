@@ -1,36 +1,106 @@
+import { fetchSinToken} from "../helpers/fetch";
 import {types} from "../types/types";
-import {auth, db, googleAuthProvider} from "../firebase/firebaseConfig";
-import {signInWithPopup} from "firebase/auth";
-import {addDoc, collection, getDocs, query, where} from "firebase/firestore";
-
-//action para el login que resive lo necesario para logearse, devuelve el type que es d tipo login y
-// el payload que son los valores q necesitamos para ejecutar la accion
-export const login = ( uid, displayName) => ({
-    type: types.login,
-    payload: {
-        uid,
-        displayName
-    }
-})
+import Swal from "sweetalert2"
 
 
-export const startGoogleLogin = async () => {
-    try {
-        const res = await signInWithPopup(auth, googleAuthProvider);
-        const user = res.user;
-        console.log(user)
-        const q = query(collection(db, "users"), where("uid", "==", user.uid));
-        const docs = await getDocs(q);
-        if (docs.docs.length === 0) {
-            await addDoc(collection(db, "users"), {
-                uid: user.uid,
-                name: user.displayName,
-                authProvider: "google",
-                email: user.email,
-            });
+export const stratLogin = (email, password) => {
+    return async (dispatch) => {
+
+        try{
+            const resp = await fetchSinToken('auth', {email, password}, "POST");
+            const body = await resp.json();
+            if (body.ok) {
+                localStorage.setItem('token', body.token);
+                localStorage.setItem('token-init-date', new Date().getTime());
+
+                dispatch(login({
+                    uid: body.uid,
+                    name: body.name
+                }))
+
+            } else {
+                Swal.fire('Error', body.sms, 'error')
+            }
+        }catch (error){
+            console.log(error);
         }
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
     }
-};
+}
+
+export const startRegister = ( email, password, name ) => {
+    return async( dispatch ) => {
+
+        try{
+            const resp = await fetchSinToken( 'auth/new', { email, password, name }, 'POST' );
+            const body = await resp.json();
+
+            if( body.ok ) {
+                localStorage.setItem('token', body.token );
+                localStorage.setItem('token-init-date', new Date().getTime() );
+
+                dispatch( login({
+                    uid: body.uid,
+                    name: body.name
+                }) )
+
+                Swal.fire('Exito', "Se ha registrado con existo", 'success');
+
+            } else {
+                Swal.fire('Error', body.sms, 'error');
+            }
+        }catch (error){
+            console.log(error);
+        }
+    }
+}
+
+export const startLogout = () => {
+    return ( dispatch ) => {
+
+        localStorage.clear();
+        dispatch( logout() );
+    }
+}
+
+// export const startChecking = () => {
+//     return async(dispatch) => {
+//
+//         try{
+//             //para renovar el token en caso d q halla espirado
+//             const resp = await fetchConToken( 'auth/renew' );
+//             const body = await resp.json();
+//
+//             if( body.ok ) {
+//                 localStorage.setItem('token', body.token );
+//                 localStorage.setItem('token-init-date', new Date().getTime() );
+//
+//                 dispatch( login({
+//                     uid: body.uid,
+//                     name: body.name
+//                 }) )
+//             } else {
+//                 dispatch( checkingFinish() );
+//             }
+//         }catch (error){
+//             console.log(error);
+//         }
+//     }
+// }
+//
+// export const startLogout = () => {
+//     return ( dispatch ) => {
+//
+//         localStorage.clear();
+//         dispatch( logout() );
+//     }
+// }
+
+const login = ( user ) => ({
+    type: types.authLogin,
+    payload: user
+});
+
+// const checkingFinish = () => ({ type: types.authCheckingFinish });
+//
+const logout = () => ({ type: types.authLogout })
+

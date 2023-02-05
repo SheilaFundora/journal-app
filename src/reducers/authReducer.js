@@ -10,19 +10,31 @@ El statge estara vacio cuando no este autenticado y cuando este autenticado tend
 import {types} from "../types/types";
 
 const initialState = {
-    name:"sheila",
-    ui:12
+    checking: false,
+    // uid: null,
+    // name: null
 }
 export const authReducer = (state = {initialState}, action) => {
     switch ( action.type ) {
-        case types.login:
+
+        case types.authLogin:
             return {
-                uid: action.payload.uid,
-                name: action.payload.displayName
+                ...state,
+                ...action.payload,
+                checking: true
             }
 
-        case types.logout:
-            return { }
+        case types.authCheckingFinish: //este es el q verifica el toke, si epiro lo revlida y mantngo lo q esta
+                                        // en el state
+            return {
+                ...state,
+                checking: true
+            }
+
+        case types.authLogout:
+            return {
+                checking: true
+            }
 
         default:
             return state;
