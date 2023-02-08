@@ -5,9 +5,9 @@ const NothingSelected = () => {
         <div className="nothing-main-content align-items-center text-white d-flex flex-column
         justify-content-center">
             <p>
-                Select something
+                Select something or
                 <br />
-                pr create an entry!
+                create an entry!
             </p>
 
             <i className="far fa-star fa-4x mt-3"></i>

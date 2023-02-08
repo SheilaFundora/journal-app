@@ -24,8 +24,8 @@ export const authReducer = (state = {initialState}, action) => {
                 checking: true
             }
 
-        case types.authCheckingFinish: //este es el q verifica el toke, si epiro lo revlida y mantngo lo q esta
-                                        // en el state
+        case types.authChecking: //este es el q verifica el toke, si epiro lo revlida y mantngo lo q esta
+                                    // en el state
             return {
                 ...state,
                 checking: true

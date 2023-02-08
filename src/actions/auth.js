@@ -1,4 +1,4 @@
-import { fetchSinToken} from "../helpers/fetch";
+import {fetchConToken, fetchSinToken} from "../helpers/fetch";
 import {types} from "../types/types";
 import Swal from "sweetalert2"
 
@@ -27,11 +27,13 @@ export const stratLogin = (email, password) => {
     }
 }
 
-export const startRegister = ( email, password, name ) => {
+export const startRegister = ( name, email, password ) => {
     return async( dispatch ) => {
 
+        console.log({name, email, password});
+
         try{
-            const resp = await fetchSinToken( 'auth/new', { email, password, name }, 'POST' );
+            const resp = await fetchSinToken( 'auth/new', { name, email, password }, 'POST' );
             const body = await resp.json();
 
             if( body.ok ) {
@@ -62,45 +64,39 @@ export const startLogout = () => {
     }
 }
 
-// export const startChecking = () => {
-//     return async(dispatch) => {
-//
-//         try{
-//             //para renovar el token en caso d q halla espirado
-//             const resp = await fetchConToken( 'auth/renew' );
-//             const body = await resp.json();
-//
-//             if( body.ok ) {
-//                 localStorage.setItem('token', body.token );
-//                 localStorage.setItem('token-init-date', new Date().getTime() );
-//
-//                 dispatch( login({
-//                     uid: body.uid,
-//                     name: body.name
-//                 }) )
-//             } else {
-//                 dispatch( checkingFinish() );
-//             }
-//         }catch (error){
-//             console.log(error);
-//         }
-//     }
-// }
-//
-// export const startLogout = () => {
-//     return ( dispatch ) => {
-//
-//         localStorage.clear();
-//         dispatch( logout() );
-//     }
-// }
+export const startChecking = () => {
+    return async(dispatch) => {
+
+        try{
+            const resp = await fetchConToken( 'auth/renew' );
+            const body = await resp.json();
+
+            console.log(body);
+
+            if( body.ok ) {
+                localStorage.setItem('token', body.token );
+                localStorage.setItem('token-init-date', new Date().getTime() );
+
+                dispatch( login({
+                    uid: body.uid,
+                    name: body.name
+                }) )
+            } else {
+                dispatch( checking() );
+            }
+        }catch (error){
+            console.log(error);
+        }
+    }
+}
+
 
 const login = ( user ) => ({
     type: types.authLogin,
     payload: user
 });
 
-// const checkingFinish = () => ({ type: types.authCheckingFinish });
-//
+const checking = () => ({ type: types.authChecking });
+
 const logout = () => ({ type: types.authLogout })
 
