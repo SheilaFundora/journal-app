@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import JournalEntry from "./JournalEntry";
+import { startLoading} from "../../actions/note";
+import {useDispatch, useSelector} from "react-redux";
 
 const JournalEntries = () => {
-    const entries = [1,2,3,4,5,6,7,8,9,10];
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        dispatch( startLoading() );
+
+    }, [ dispatch ])
+
+    const { notes } = useSelector( state => state.note);
+
+    console.log(notes);
+
+
 
     return (
         <div className="journal-entries mt-2">
             {
-                entries.map(value => (
-                    <JournalEntry key={value} />
+                notes.map(note => (
+                    <JournalEntry key={note.uid} title={note.title} date={note.date} />
                 ))
             }
         </div>

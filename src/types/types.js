@@ -7,11 +7,11 @@ export const types = {
 
     //note
     noteSetActive: '[note] Set Active',
+    noteLoaded: '[note] Note loaded',
 
 
     noteAddNew: '[note] Add new',
     noteUpdated: '[note] Note updated',
     noteDeleted: '[note] Note deleted',
-    noteLoaded: '[note] Note loaded',
 
 }

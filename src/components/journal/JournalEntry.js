@@ -1,6 +1,7 @@
 import React from 'react';
 
-const JournalEntry = () => {
+
+const JournalEntry = ({title, date}) => {
     return (
         <div className="journal-entry mb-3 d-flex overflow-hidden">
 
@@ -12,7 +13,7 @@ const JournalEntry = () => {
 
             <div className="journal-entry-body p-2">
                 <p className="journal-entry-title m-0">
-                    Un nuevo día
+                    {title}
                 </p>
                 <p className="journal-entry-content mt-1 p-0 mb-0">
                     Reprehenderit id in duis consectetur fugiat.
@@ -20,8 +21,7 @@ const JournalEntry = () => {
             </div>
 
             <div className="journal-entry-date-box d-flex align-items-center justify-content-center flex-column p-2">
-                <span>Monday</span>
-                <h5>28</h5>
+                <span>{date}</span>
             </div>
 
         </div>

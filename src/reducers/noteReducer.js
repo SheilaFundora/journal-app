@@ -7,7 +7,9 @@ const initialState = {
     activeNote: null
 }
 export const noteReducer = (state = {initialState}, action) => {
+
     switch ( action.type ) {
+
         case types.noteSetActive:
             return {
                 ...state,
@@ -51,11 +53,12 @@ export const noteReducer = (state = {initialState}, action) => {
         //         ),
         //         activeEvents: null
         //     }
-        // case types.eventLoaded:
-        //     return {
-        //         ...state,
-        //         events: [ ...action.payload ]
-        //     }
+            case types.noteLoaded:
+                return {
+                    ...state,
+                    notes: [ ...action.payload ]
+
+                }
         // case types.eventLogout:
         //     return {
         //         ...initialState
