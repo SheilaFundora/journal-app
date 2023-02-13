@@ -1,19 +1,31 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+import {noteStartDelete, noteStartUpdate} from "../../actions/note";
 
-const NoteAppBar = () => {
+const NoteAppBar = ({ date, activeTypeNote, formvalues}) => {
+    const dispatch = useDispatch();
+
+    const handleDelete = () => {
+        dispatch(noteStartDelete());
+    }
+
+    const handleUpdateNote = () => {
+        dispatch(noteStartUpdate(formvalues))
+    }
+
     return (
-        <div className="note-appbar align-items-center text-white d-flex justify-content-between py-2 px-4">
-            <span>28 de agosto 2020</span>
+    <div className="note-appbar align-items-center text-white d-flex justify-content-between py-2 ps-4 pe-5">
+            <span className='py-2'>{ activeTypeNote === 'add' ? "Add a new note" : date}</span>
 
             <div>
-                <button className="note-nav-buttons">
-                    Picture
-                </button>
-
-                <button className="note-nav-buttons ms-3">
-                    Save
-                </button>
+                <span>
+                    { activeTypeNote === 'select' ? <button className="note-nav-buttons  mx-1" onClick={handleUpdateNote}>Update</button> : ''}
+                </span>
+                <span>
+                    { activeTypeNote === 'select' ? <button className="note-nav-buttons mx-1" onClick={handleDelete}>Delete</button> : ''}
+                </span>
             </div>
+
         </div>
     );
 };

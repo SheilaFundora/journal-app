@@ -8,9 +8,9 @@ export const types = {
     //note
     noteSetActive: '[note] Set Active',
     noteLoaded: '[note] Note loaded',
-
-
+    cleanActiveNote: '[note] set active note',
     noteAddNew: '[note] Add new',
+    noteTypeAction: '[note] Add new view special',
     noteUpdated: '[note] Note updated',
     noteDeleted: '[note] Note deleted',
 

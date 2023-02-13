@@ -4,6 +4,8 @@ import JournalPage from "../components/journal/JournalPage";
 import {useDispatch, useSelector} from "react-redux";
 import AuthRouter from "./AuthRouter";
 import {startChecking} from "../actions/auth";
+import {startLoading} from "../actions/note";
+
 
 const AppRouter = () => {
     const { uid, checking } = useSelector( state => state.auth);
@@ -13,8 +15,14 @@ const AppRouter = () => {
         dispatch( startChecking() );
     }, [dispatch])
 
+    useEffect(() => {
+
+        dispatch( startLoading() );
+
+    }, [ dispatch ])
+
     if ( !checking ) {
-        return (<h5>Espere...</h5>);
+        return (<h5>Wait...</h5>);
     }
 
     //!!uid singifica q si es true

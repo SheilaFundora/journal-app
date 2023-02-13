@@ -3,8 +3,9 @@
 import {types} from "../types/types";
 
 const initialState = {
-    notes: [],
-    activeNote: null
+    notes: [{title:'123'}],
+    activeNote: null,
+    activeTypeNote: null
 }
 export const noteReducer = (state = {initialState}, action) => {
 
@@ -16,43 +17,48 @@ export const noteReducer = (state = {initialState}, action) => {
                 activeNote: action.payload
             }
 
-        case types.authLogout:
+        case types.noteTypeAction:
             return {
-                activeNote: null
+                ...state,
+                activeTypeNote: action.payload
             }
 
-        // case types.eventAddNew:
-        //     return {
-        //         ...state,
-        //         events: [ //pongo en el evento todoo lo q estaba mas lo nuevo del payload, s recomendado
-        //             // utilizar el operador express ... para mandarlo todo
-        //             ...state.events,
-        //             action.payload
-        //         ]
-        //     }
-        //
-        // case types.eventClearactiveEvents:
-        //     return {
-        //         ...state,
-        //         activeEvents: null
-        //     }
-        //
-        // case types.eventUpdated:
-        //     return {
-        //         ...state,
-        //         events: state.events.map(
-        //             e => ( e.id === action.payload.id ) ? action.payload : e
-        //         )
-        //     }
-        //
-        // case types.eventDeleted:
-        //     return {
-        //         ...state,
-        //         events: state.events.filter(
-        //             e => ( e.id !== state.activeEvents.id )
-        //         ),
-        //         activeEvents: null
-        //     }
+        case types.cleanActiveNote:
+            return {
+                ...state,
+                activeNote: null,
+                activeTypeNote: null
+
+            }
+
+        case types.eventAddNew:
+            return {
+                ...state,
+                notes: [
+                    ...state.notes,
+                    action.payload
+                ]
+            }
+
+
+
+        case types.eventUpdated:
+            return {
+                ...state,
+                events: state.events.map(
+                    e => ( e.id === action.payload.id ) ? action.payload : e
+                )
+            }
+
+        case types.noteDeleted:
+            return {
+                ...state,
+                notes: state.notes.filter(
+                    e => ( e.id !== state.activeNote.id )
+                ),
+                activeNote: null,
+                activeTypeNote: null
+            }
             case types.noteLoaded:
                 return {
                     ...state,

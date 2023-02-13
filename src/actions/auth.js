@@ -61,6 +61,8 @@ export const startLogout = () => {
 
         localStorage.clear();
         dispatch( logout() );
+
+        dispatch( cleanActiveNote());
     }
 }
 
@@ -97,4 +99,6 @@ const login = ( user ) => ({
 const checking = () => ({ type: types.authChecking });
 
 const logout = () => ({ type: types.authLogout })
+
+const cleanActiveNote = () => ({ type: types.cleanActiveNote })
 

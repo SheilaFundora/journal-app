@@ -14,14 +14,13 @@ const Sidebar = () => {
     }
 
     const handleAddNote = () => {
-        dispatch(handlenoteSetActive())
+        dispatch(handleSetAcionAdd())
     }
 
-    const handlenoteSetActive = () =>({
-        type: types.noteSetActive,
+    const handleSetAcionAdd = () =>({
+        type: types.noteTypeAction,
         payload: "add"
     })
-
 
     return (
         <aside className="journal-sidebar px-4">
