@@ -1,6 +1,9 @@
 import {fetchConToken} from "../helpers/fetch";
 import {types} from "../types/types";
 import Swal from "sweetalert2";
+import {fileUpload} from "../helpers/fileUpload";
+
+let url = ''
 
 export const startLoading = () => {
     return async(dispatch) => {
@@ -8,8 +11,6 @@ export const startLoading = () => {
         try {
             const resp = await fetchConToken( 'notes' );
             const body = await resp.json();
-
-            console.log(body)
 
             if ( body.ok ) {
                 const note = body.note;
@@ -23,7 +24,23 @@ export const startLoading = () => {
         } catch (error) {
             console.log(error)
         }
+    }
+}
+export const startUploading = ( file ) => {
+    return async( dispatch, getState ) => {
 
+        Swal.fire({
+            title: 'Uploading...',
+            text: 'Please wait...',
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        url = await fileUpload( file );
+
+        Swal.close();
     }
 }
 
@@ -31,6 +48,7 @@ export const noteStartAddNew = ( note ) => {
     return async( dispatch, getState ) => {
 
         const {uid, name} = getState().auth;
+        note.url = url
 
         try{
             const resp = await fetchConToken('notes', note, "POST");
@@ -57,7 +75,7 @@ export const noteStartAddNew = ( note ) => {
         }catch (error){
             console.log(error);
         }
-
+        url = ''
     }
 }
 
@@ -88,8 +106,10 @@ export const noteStartDelete = () => {
 
 export const noteStartUpdate = (note) => {
     return async ( dispatch, getState ) => {
+        note.url = url
 
-        console.log(note)
+        console.log(note.url)
+
 
         const { id } = getState().note.activeNote;
         try {
@@ -112,6 +132,7 @@ export const noteStartUpdate = (note) => {
             console.log(error)
         }
 
+        url = ''
     }
 }
 

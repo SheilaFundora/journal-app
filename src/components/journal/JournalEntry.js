@@ -3,11 +3,11 @@ import {types} from "../../types/types";
 import {useDispatch} from "react-redux";
 
 
-const JournalEntry = ({title, description, ...notes}) => {
+const JournalEntry = ({title, description, url, ...notes}) => {
     const dispatch = useDispatch();
 
     const handleAciveEvent = () => {
-        const noteSelected = {title, description, ...notes}
+        const noteSelected = {title, description, url, ...notes}
 
         dispatch(handlenoteSetActive(noteSelected))
 
@@ -32,7 +32,7 @@ const JournalEntry = ({title, description, ...notes}) => {
                 style={{
                     backgroundSize: 'cover',
                     backgroundPosition: "center center",
-                    backgroundImage: 'url(https://earthsky.org/upl/2018/12/comet-wirtanen-Jack-Fusco-dec-2018-Anza-Borrego-desert-CA-e1544613895713.jpg)'                }}></div>
+                    backgroundImage: `url( ${url})` }}></div>
 
             <div className="journal-entry-body p-2">
                 <p className="journal-entry-title m-0">

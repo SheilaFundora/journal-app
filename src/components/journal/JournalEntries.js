@@ -6,11 +6,9 @@ import { useSelector} from "react-redux";
 const JournalEntries = () => {
     const { notes } = useSelector( state => state.note);
 
-    console.log(notes.length)
-
     return (
         <div className="journal-entries ">
-            {
+            { (notes !== undefined ) &&
                 notes.map(note => (
                     <JournalEntry key={note.id}  {...note} />
                 ))

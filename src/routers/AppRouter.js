@@ -4,7 +4,6 @@ import JournalPage from "../components/journal/JournalPage";
 import {useDispatch, useSelector} from "react-redux";
 import AuthRouter from "./AuthRouter";
 import {startChecking} from "../actions/auth";
-import {startLoading} from "../actions/note";
 
 
 const AppRouter = () => {
@@ -14,12 +13,6 @@ const AppRouter = () => {
     useEffect(() => {
         dispatch( startChecking() );
     }, [dispatch])
-
-    useEffect(() => {
-
-        dispatch( startLoading() );
-
-    }, [ dispatch ])
 
     if ( !checking ) {
         return (<h5>Wait...</h5>);

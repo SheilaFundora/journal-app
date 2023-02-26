@@ -6,7 +6,7 @@ import {useForm} from "../../hooks/useForm";
 const NotePage = () => {
     const { activeNote, activeTypeNote } = useSelector( state => state.note);
     const [ formValues, handleInputChange, reset ] = useForm(activeNote);
-    const { title, description, url } = formValues;
+    const { title, description } = formValues;
 
     console.log(formValues)
 
@@ -30,9 +30,6 @@ const NotePage = () => {
             <NoteAppBar activeTypeNote={activeTypeNote} date={activeNote.date.slice(0, 10)} formvalues={formValues}/>
 
             <div className="notes-content d-flex flex-column h-100 p-4 mx-4">
-
-                <h1>{url}</h1>
-
                 <div>
                     <input
                         type="text"
@@ -52,25 +49,17 @@ const NotePage = () => {
                         value={description}
                         onChange={handleInputChange}
                     ></textarea>
-{/*condicionalemnte si activeNote.url, si existe lo muestro*/}
-                    <div className='d-flex justify-content-between'>
+
+                    { (activeNote.url !== '') &&
+                        <div className='d-flex justify-content-between'>
                         <div className="note-image mt-2">
-                            <img
-                                src={`../../../../../../../../${url}`}
-                                alt="imagen"
-                            />
+                        <img
+                        src={activeNote.url}
+                        alt="imagen"
+                        />
                         </div>
-
-
-                        {/*<div className="note-image mt-3 mx-5">*/}
-                        {/*    <input type="file"*/}
-                        {/*           name="url"*/}
-                        {/*           id="inputFile"*/}
-                        {/*           value={url}*/}
-                        {/*           onChange={handleInputChange}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
-                    </div>
+                        </div>
+                    }
 
                 </div>
             </div>
