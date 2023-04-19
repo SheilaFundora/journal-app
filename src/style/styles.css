@@ -1,0 +1,16 @@
+body{
+}
+
+.navbar{
+    border-bottom: 4px solid deeppink;
+}
+
+.title{
+    text-align: center;
+    color: deeppink;
+}
+
+.check{
+    font-size: 25px;
+}
+
