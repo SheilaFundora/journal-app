@@ -4,7 +4,7 @@
 FROM node:18
 
 # Working directory be app
-WORKDIR /src/app
+WORKDIR /usr/app
 
 COPY package*.json ./
 
