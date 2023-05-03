@@ -14,3 +14,11 @@ body{
     font-size: 25px;
 }
 
+.inp-style{
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.texttarea{
+    height: 150px;
+}

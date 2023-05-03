@@ -1,6 +1,11 @@
 import React from 'react';
+import {useSelector} from "react-redux";
+import TableItem from "./TableItem";
 
 const Table = () => {
+
+    const { toDos } = useSelector( state => state.toDo);
+
     return (
         <div className='p-5 mt-3'>
             <table className="table text-center table-hover">
@@ -14,26 +19,12 @@ const Table = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>Doe</td>
-                    <td><button className='btn btn-secondary'> Update </button></td>
-                    <td><button className='btn btn-danger'> Delete </button></td>
-                </tr> <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>Doe</td>
-                    <td><button className='btn btn-secondary'> Update </button></td>
-                    <td><button className='btn btn-danger'> Delete </button></td>
-                </tr> <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>Doe</td>
-                    <td><button className='btn btn-secondary'> Update </button></td>
-                    <td><button className='btn btn-danger'> Delete </button></td>
-                </tr>
+                    {
+                        toDos.map(toDos => (
+                            <TableItem key={toDos.id}  {...toDos} />
+                        ))
 
+                    }
                 </tbody>
             </table>
         </div>

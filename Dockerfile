@@ -1,7 +1,8 @@
 # Dockerfile for client
 
 # Stage 1: Build react client
-FROM node:18
+
+FROM node:18-alpine3.12
 
 # Working directory be app
 WORKDIR /usr/app
